@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "GitHub Sync",
+    "description": "Bidirectional GitHub repository sync, Actions/CI monitoring, pre-push local checks and DSH automation pipeline"
+  }
+}

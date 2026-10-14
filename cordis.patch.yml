@@ -1,0 +1,45 @@
+# dsh-github-sync —— 插件配置层
+#
+# config 会原样传给 apply(ctx, config)，不做 schema 校验。可调项：
+#
+#   enabled:            true|false        总开关（false 时定时停用，工具/面板仍可手动触发）
+#   runOnStart:         true|false        DSH 启动后立即跑一轮同步（默认 false）
+#   intervalMinutes:    number >= 1       定时同步间隔（默认 30）
+#   token:              string            GitHub PAT（也可用 tokenEnv 指向环境变量，推荐）
+#   tokenEnv:           string            读取 PAT 的环境变量名（默认 GITHUB_TOKEN）
+#   storageFile:        string            状态文件路径（默认 <profile>/github-sync-state.json）
+#   cloneRoot:          string            面板/工具「加入同步」缺省克隆目录（默认 ~/dsh-github-sync）
+#   notifyAgent:        true|false        事件发生时用 agent.followup 唤醒会话（默认 true）
+#   notifyOn:           [string]          触发通知的事件：conflict / error / checks / pipeline / pull / push
+#   autoCommit:         true|false        合并前是否自动提交未暂存改动（默认 false，安全）
+#   conflictPolicy:     report|merge|rebase|prefer-remote|prefer-local
+#                         report = 分叉时只报告不动手（默认，最安全）
+#   onCheckFailure:     block|warn        推送前检查失败时：block=中止推送（默认）/ warn=仅告警
+#   checks:             [{name, run, onFail}]  全局默认的推送前本地检查（仓库级可覆盖）
+#   repos:              [仓库配置]        见下方示例
+#       name:           展示名
+#       path:           本地 git 仓库路径（必填）
+#       remote:         远端名（默认 origin）
+#       branch:         分支（默认当前分支）
+#       mode:           bidirectional | pull | push（默认 bidirectional）
+#       autoCommit / conflictPolicy / checks / onCheckFailure  均可按仓库覆盖
+#       commitMessage:  autoCommit 时的提交信息
+#       ciWorkflow:     GitHub Actions workflow 文件名（如 ci.yml）——流水线里触发
+#       workflowFile:   workflow 的 id 或文件名（dispatch 接口用，默认同 ciWorkflow）
+#       ensureCiWorkflow: true|false      仓库缺少 CI workflow 时自动创建（需 PAT）
+#   pipeline:           流水线行为
+#       triggerCi:      同步成功后触发 CI（默认 true，需 ciWorkflow）
+#       waitCi:         等待 CI 跑完并汇报结论（默认 true）
+#       waitTimeoutMinutes: 等待上限（默认 10）
+#       pollIntervalSeconds: 轮询间隔（默认 20）
+#
+- insert:
+    - id: github-sync
+      name: 'dsh-github-sync'
+      # 包内只放默认配置，不放任何密钥与机器相关路径。
+      # 你的 token 与仓库列表请写在 profile 自己的 patch 层
+      # （$DSH_HOME/profiles/<name>/cordis.patch.yml，按 id+name 覆盖）：
+      #   - id: github-sync
+      #     name: dsh-github-sync
+      #     config: { token: 'ghp_...', repos: [...] }
+      config: {}

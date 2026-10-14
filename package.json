@@ -1,0 +1,69 @@
+{
+  "name": "dsh-github-sync",
+  "version": "1.0.0",
+  "description": "GitHub repository sync for DSH: bidirectional git sync with pre-push checks, Actions/CI monitoring with run-detail drill-down, repo add/remove/rename, local file browsing, and a scheduled automation pipeline — from the web panel or agent tools.",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "icon": "./icon.svg",
+  "meta": {
+    "title": "GitHub Sync",
+    "description": "GitHub 仓库双向同步、Actions 触发与监控、CI 状态展示、推送前本地检查与 DSH 自动化流水线"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar"
+      ]
+    }
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "lib",
+    "locale",
+    "icon.svg",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "github",
+    "git-sync",
+    "github-actions",
+    "ci"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wzw4429-crypto/dsh-github-sync.git"
+  },
+  "homepage": "https://github.com/wzw4429-crypto/dsh-github-sync#readme",
+  "bugs": {
+    "url": "https://github.com/wzw4429-crypto/dsh-github-sync/issues"
+  },
+  "scripts": {
+    "test": "node --test test/run-tests.mjs",
+    "check": "node --check index.js && node --check client.js && node --test test/run-tests.mjs"
+  }
+}

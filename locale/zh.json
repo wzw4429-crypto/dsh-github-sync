@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "GitHub 同步",
+    "description": "GitHub 仓库双向同步、Actions 触发与监控、CI 状态展示、推送前本地检查与 DSH 自动化流水线"
+  }
+}

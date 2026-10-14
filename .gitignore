@@ -1,0 +1,11 @@
+# dependencies / build output
+node_modules/
+*.tgz
+
+# local runtime state (never commit)
+github-sync-state.json
+*.log
+
+# OS noise
+.DS_Store
+Thumbs.db
